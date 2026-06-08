@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Pecan Space – Home & Apartment Cleaning Services</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -27,6 +27,7 @@
     color: var(--text);
     background: var(--white);
     overflow-x: hidden;
+    max-width: 100vw;
   }
 
   /* ── TOP BAR ─────────────────────────────────── */
@@ -236,16 +237,18 @@
   .hero-img-main {
     width: 300px;
     height: 300px;
-    background: linear-gradient(145deg, #E3F2FD, #BBDEFB);
     border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 8rem;
+    overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     position: relative;
     z-index: 2;
     animation: float 3s ease-in-out infinite;
+  }
+  .hero-img-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   @keyframes float {
@@ -443,13 +446,55 @@
   .pkg-card label .pkg-icon { font-size: 2rem; }
   .pkg-card label .pkg-name { font-size: 0.78rem; font-weight: 700; color: var(--navy); }
   .pkg-card label .pkg-detail { font-size: 0.7rem; color: var(--muted); }
+  .pkg-card label .pkg-price {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--sky);
+    background: var(--light-blue);
+    border-radius: 50px;
+    padding: 2px 10px;
+    margin-top: 2px;
+  }
 
   .pkg-card input[type="radio"]:checked + label {
     border-color: var(--sky);
     background: var(--light-blue);
     box-shadow: 0 4px 16px rgba(30,136,229,0.18);
   }
+  .pkg-card input[type="radio"]:checked + label .pkg-price {
+    background: var(--sky);
+    color: #fff;
+  }
   .pkg-card label:hover { border-color: var(--sky); }
+
+  /* Price estimate banner */
+  .price-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: linear-gradient(135deg, var(--pale), var(--light-blue));
+    border: 2px solid var(--sky);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+  }
+  .price-banner-left { display: flex; align-items: center; gap: 14px; }
+  .price-banner-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--sky), var(--blue));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .price-banner-label { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .price-banner-pkg { font-size: 0.95rem; font-weight: 700; color: var(--navy); }
+  .price-banner-right { text-align: right; flex-shrink: 0; }
+  .price-banner-from { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+  .price-banner-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--blue); line-height: 1; }
+  .price-banner-note { font-size: 0.7rem; color: var(--muted); margin-top: 3px; }
 
   .btn-whatsapp-submit {
     width: 100%;
@@ -624,16 +669,84 @@
     .footer-inner { grid-template-columns: 1fr; gap: 30px; }
     .topbar { display: none; }
   }
+
   @media (max-width: 600px) {
-    header { padding: 0 20px; }
+    /* Header */
+    header { padding: 0 16px; height: 60px; }
+    .logo-text { font-size: 1.2rem; }
+    .logo-icon { width: 36px; height: 36px; font-size: 1.1rem; border-radius: 9px; }
     .btn-call .label { display: none; }
-    .section { padding: 60px 20px; }
-    .booking-inner { padding: 50px 20px; }
-    .form-card { padding: 30px 22px; }
-    .why-inner { padding: 60px 20px; }
-    footer { padding: 40px 20px 24px; }
-    .packages-grid { grid-template-columns: repeat(2,1fr); }
-    .stats-bar { gap: 28px; padding: 20px; }
+    .btn-call { padding: 8px 14px; }
+
+    /* Hero */
+    .hero { min-height: auto; }
+    .hero-inner { padding: 40px 20px; gap: 30px; }
+    .hero-title { font-size: 2rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+    .hero-card-stack { width: 280px; height: 300px; }
+    .hero-img-main { width: 240px; height: 240px; }
+    .hero-badge-card.bc1 { left: -10px; bottom: 10px; padding: 8px 12px; }
+    .hero-badge-card.bc2 { right: -10px; top: 10px; padding: 8px 12px; }
+    .hero-badge-card .bc-icon { font-size: 1.1rem; }
+    .hero-badge-card .bc-label { font-size: 0.68rem; }
+
+    /* Stats bar */
+    .stats-bar { gap: 20px; padding: 20px 16px; flex-wrap: wrap; }
+    .stat-num { font-size: 1.4rem; }
+    .stat-label { font-size: 0.72rem; }
+
+    /* Sections */
+    .section { padding: 50px 16px; }
+    .section-title { font-size: 1.6rem; }
+    .section-sub { font-size: 0.9rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 16px; }
+    .service-card { padding: 24px 20px; }
+
+    /* Booking form */
+    .booking-inner { padding: 40px 16px; }
+    .form-card { padding: 24px 18px; border-radius: 20px; }
+    .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .pkg-card label { padding: 14px 8px; gap: 4px; }
+    .pkg-card label .pkg-icon { font-size: 1.6rem; }
+    .pkg-card label .pkg-name { font-size: 0.72rem; }
+    .pkg-card label .pkg-detail { font-size: 0.65rem; }
+    .pkg-card label .pkg-price { font-size: 0.65rem; padding: 2px 7px; }
+
+    /* Price banner mobile */
+    .price-banner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+    .price-banner-right { text-align: left; }
+    .price-banner-amount { font-size: 1.5rem; }
+    .price-banner-icon { width: 36px; height: 36px; font-size: 1.1rem; border-radius: 9px; }
+
+    /* Form fields */
+    .form-group input,
+    .form-group select,
+    .form-group textarea { font-size: 16px; } /* Prevents iOS zoom on focus */
+
+    /* Why section */
+    .why-inner { padding: 50px 16px; }
+    .why-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 30px; }
+    .why-card { padding: 22px 18px; }
+
+    /* Coverage */
+    .coverage-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .area-chip { font-size: 0.8rem; padding: 10px 12px; }
+
+    /* Footer */
+    footer { padding: 36px 16px 20px; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
+
+    /* Float WA button */
+    .float-wa { width: 52px; height: 52px; font-size: 1.3rem; bottom: 20px; right: 16px; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title { font-size: 1.75rem; }
+    .packages-grid { grid-template-columns: 1fr 1fr; }
+    .pkg-card label .pkg-price { display: none; }
+    .coverage-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -682,7 +795,9 @@
 
     <div class="hero-visual">
       <div class="hero-card-stack">
-        <div class="hero-img-main">🏠</div>
+        <div class="hero-img-main">
+          <img src="https://i.imgur.com/alVtdCD.png" alt="Pecan Space - Professional Home Cleaning">
+        </div>
         <div class="hero-badge-card bc1">
           <span class="bc-icon">⭐</span>
           <div class="bc-label">4.9 / 5 Rating<br><small>500+ Happy Clients</small></div>
@@ -772,6 +887,7 @@
               <span class="pkg-icon">🛏️</span>
               <span class="pkg-name">2 Bedrooms</span>
               <span class="pkg-detail">Apartment</span>
+              <span class="pkg-price">LKR 9,750</span>
             </label>
           </div>
           <div class="pkg-card">
@@ -780,6 +896,7 @@
               <span class="pkg-icon">🏡</span>
               <span class="pkg-name">3 Bedrooms</span>
               <span class="pkg-detail">Home</span>
+              <span class="pkg-price">LKR 12,750</span>
             </label>
           </div>
           <div class="pkg-card">
@@ -788,6 +905,7 @@
               <span class="pkg-icon">🏠</span>
               <span class="pkg-name">4 Bedrooms</span>
               <span class="pkg-detail">Large Home</span>
+              <span class="pkg-price">LKR 15,750</span>
             </label>
           </div>
           <div class="pkg-card">
@@ -796,25 +914,32 @@
               <span class="pkg-icon">💼</span>
               <span class="pkg-name">Small Business</span>
               <span class="pkg-detail">Office / Shop</span>
+              <span class="pkg-price">Custom Quote</span>
             </label>
           </div>
         </div>
       </div>
 
-      <div class="form-grid" style="margin-bottom:28px;">
+      <!-- Dynamic price estimate banner -->
+      <div class="price-banner" id="price-banner">
+        <div class="price-banner-left">
+          <div class="price-banner-icon" id="price-icon">🛏️</div>
+          <div>
+            <div class="price-banner-label">Selected Package</div>
+            <div class="price-banner-pkg" id="price-pkg-name">2-Bedroom Apartment</div>
+          </div>
+        </div>
+        <div class="price-banner-right">
+          <div class="price-banner-from" id="price-from-label">Estimated price</div>
+          <div class="price-banner-amount" id="price-amount">LKR 9,750</div>
+          <div class="price-banner-note" id="price-note">Final price confirmed on WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="form-grid full" style="margin-bottom:28px;">
         <div class="form-group">
           <label>Preferred Date</label>
           <input type="date" id="f-date" />
-        </div>
-        <div class="form-group">
-          <label>Preferred Time</label>
-          <select id="f-time">
-            <option value="">Select time slot</option>
-            <option>7:00 AM – 10:00 AM</option>
-            <option>10:00 AM – 1:00 PM</option>
-            <option>1:00 PM – 4:00 PM</option>
-            <option>4:00 PM – 7:00 PM</option>
-          </select>
         </div>
       </div>
 
@@ -907,13 +1032,43 @@
 <a href="https://wa.me/94771234567" target="_blank" class="float-wa" title="Chat on WhatsApp">💬</a>
 
 <script>
+  const PRICES = {
+    'pkg2':   { name: '2-Bedroom Apartment',     icon: '🛏️', price: 'LKR 9,750',  custom: false },
+    'pkg3':   { name: '3-Bedroom Home',           icon: '🏡', price: 'LKR 12,750', custom: false },
+    'pkg4':   { name: '4-Bedroom Home',           icon: '🏠', price: 'LKR 15,750', custom: false },
+    'pkgBiz': { name: 'Shop & Office Cleaning',   icon: '💼', price: 'Custom Quote', custom: true },
+  };
+
+  function updatePriceBanner() {
+    const selected = document.querySelector('input[name="package"]:checked');
+    if (!selected) return;
+    const data = PRICES[selected.id];
+    if (!data) return;
+    document.getElementById('price-icon').textContent     = data.icon;
+    document.getElementById('price-pkg-name').textContent = data.name;
+    document.getElementById('price-amount').textContent   = data.price;
+    document.getElementById('price-from-label').textContent = data.custom ? 'Pricing' : 'Estimated price';
+    document.getElementById('price-note').textContent     = data.custom
+      ? 'We\'ll send a tailored quote via WhatsApp'
+      : 'Final price confirmed on WhatsApp';
+
+    const banner = document.getElementById('price-banner');
+    banner.style.transform = 'scale(1.02)';
+    setTimeout(() => banner.style.transform = 'scale(1)', 200);
+  }
+
+  document.querySelectorAll('input[name="package"]').forEach(radio => {
+    radio.addEventListener('change', updatePriceBanner);
+  });
+
   function sendToWhatsApp() {
     const name    = document.getElementById('f-name').value.trim();
     const phone   = document.getElementById('f-phone').value.trim();
     const address = document.getElementById('f-address').value.trim();
     const date    = document.getElementById('f-date').value;
-    const time    = document.getElementById('f-time').value;
     const pkg     = document.querySelector('input[name="package"]:checked')?.value || '';
+    const selected = document.querySelector('input[name="package"]:checked');
+    const estimate = selected ? PRICES[selected.id]?.price : '';
 
     if (!name || !phone || !address) {
       alert('Please fill in your Name, Phone Number, and Address before submitting.');
@@ -925,8 +1080,8 @@
       + `*Phone:* ${phone}\n`
       + `*Address:* ${address}\n`
       + `*Package:* ${pkg}\n`
+      + (estimate ? `*Estimated Price:* ${estimate}\n` : '')
       + (date ? `*Date:* ${date}\n` : '')
-      + (time ? `*Time Slot:* ${time}\n` : '')
       + `\nPlease confirm my booking. Thank you!`;
 
     window.open('https://wa.me/94771234567?text=' + encodeURIComponent(msg), '_blank');
